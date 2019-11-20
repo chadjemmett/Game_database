@@ -10,3 +10,12 @@ module.exports = server
 server.get("/", (req, res) => {
   res.status(200).json("Working")
 })
+
+
+server.post("/api/games", (req, res) => {
+  const data = req.body
+  db('games')
+    .insert((data))
+    .then(id => res.status(201).json(id))
+    .catch(err => res.status(500).json({message: "There was a problem creating the resource"}))
+})
