@@ -1,5 +1,8 @@
 Test for WEHCO media. Started Nov. 20 12:39 MT.
 
+took a break at 1:50 PM MT. Nov 20 
+
+
 # As a user...
 I want to be able to see a list of video games. The games are organized by favorites first. Then alphabetical.
 I want to be able to click on a game to save it as a favorite.
