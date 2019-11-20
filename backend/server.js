@@ -19,3 +19,13 @@ server.post("/api/games", (req, res) => {
     .then(id => res.status(201).json(id))
     .catch(err => res.status(500).json({message: "There was a problem creating the resource"}))
 })
+
+server.get("/api/games/all", (req, res) => {
+  db('games').orderBy([{column: "favorite", order: "desc"}, {column: "title"}])
+    .then(allGames => {res.status(200).json(allGames)})
+    .catch(err => res.status(500).json({message: "There was a problem getting the resources"}))
+
+})
+
+
+// knex('users').orderBy([{ column: 'email'  }, { column: 'age', order: 'desc'  }])
