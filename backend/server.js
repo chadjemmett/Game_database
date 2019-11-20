@@ -6,12 +6,6 @@ const db = knex(knexConfig.development)
 server.use(express.json())
 module.exports = server
 
-
-server.get("/", (req, res) => {
-  res.status(200).json("Working")
-})
-
-
 server.post("/api/games", (req, res) => {
   const data = req.body
   db('games')
@@ -24,8 +18,25 @@ server.get("/api/games/all", (req, res) => {
   db('games').orderBy([{column: "favorite", order: "desc"}, {column: "title"}])
     .then(allGames => {res.status(200).json(allGames)})
     .catch(err => res.status(500).json({message: "There was a problem getting the resources"}))
-
 })
 
+server.put("/api/games/:game_id", (req, res) => {
+  const {game_id} = req.params
+    // the front end should just send the favorite in the request
+  const {favorite} = req.body
+  db('games')
+    .where({id: game_id})
+    .update({favorite: favorite})
+    .then(count => res.status(200).json({message: "You favorited a game", count}))
+    .catch(err => res.status(500).json({message: "There was a problem updating the resource"}))
+})
 
-// knex('users').orderBy([{ column: 'email'  }, { column: 'age', order: 'desc'  }])
+server.delete("/api/games/:game_id", (req, res) => {
+   const {game_id} = req.params
+   db('games')
+    .where({id: game_id})
+    .del()
+    .then(count => res.status(200).json({message: "you deleted a resource", count}))
+    .catch(err => res.status(500).json({message: "There was a problem deleting the resource"}))
+})
+

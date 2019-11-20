@@ -1,6 +1,7 @@
 Test for WEHCO media. Started Nov. 20 12:39 MT.
 
-took a break at 1:50 PM MT. Nov 20 
+took a break at 1:50 PM MT. Nov 20
+Started working at 2:35 PM MT Nov 20
 
 
 # As a user...
