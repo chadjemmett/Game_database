@@ -1,0 +1,25 @@
+{
+  "name": "video_game_db",
+  "version": "1.0.0",
+  "description": "A take-home test for WEHCO media.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+     "start": "nodemon index.js"
+ 
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ceejaay/Game_database/tree/master"
+  },
+  "author": "Chad Jemmett",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "knex": "^0.20.2",
+    "sqlite3": "^4.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.0"
+  }
+}
