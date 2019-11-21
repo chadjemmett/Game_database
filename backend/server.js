@@ -9,14 +9,22 @@ server.use(express.json())
 module.exports = server
 
 server.post("/api/games", (req, res) => {
-  console.log("Body ", req.body)
+  const {title} = req.body
   const data = req.body
   db('games')
-    .insert((data))
-    .then(id => {
-      console.log("Added game")
-      res.status(201).json(id)
-    })
+   .where({title: title})
+   .then(rows => {
+     if(rows.length === 0) {
+      db('games')
+      .insert((data))
+      .then(id => {
+        console.log("Added game")
+        res.status(201).json(id)
+      .catch(err => res.status(403).json({message: "Resource already exists"}))
+      })
+     }
+   })
+   
     .catch(err => {
       console.log("didn't add game", err)
       res.status(500).json({message: "There was a problem creating the resource", err})

@@ -9,6 +9,7 @@ class GameList extends React.Component {
       this.state = {
         games: [],
         error: "",
+        message: "",
         title: "", 
           release_date: "",
           platform: "",
@@ -32,27 +33,9 @@ class GameList extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     let copyGames = this.state.games
-    copyGames.push({
-        title: this.state.title,
-        release_date: this.state.release_date,
-        genre: this.state.genre,
-        developer: this.state.developer,
-        platform: this.state.platform,
-        publisher: this.state.publisher,
-        favorite: this.state.favorite
-    })
-      copyGames = copyGames.sort((a, b) => {
-        if(a.favorite > b.favorite) {
-          return -1
-        }
-        if(a.favorite < b.favorite) {
-          return 1
-        }
-
-      })
-      this.setState({games: copyGames})
-
-      axios.post('http://localhost:3000/api/games', {
+    const filteredGames = copyGames.filter(item => item.title === this.state.title)
+    if(filteredGames.length === 0) {
+      copyGames.push({
           title: this.state.title,
           release_date: this.state.release_date,
           genre: this.state.genre,
@@ -60,9 +43,38 @@ class GameList extends React.Component {
           platform: this.state.platform,
           publisher: this.state.publisher,
           favorite: this.state.favorite
-          })
-     .then(response => this.setState({message: response}))
-     .catch(err => this.setState({error: err}))
+      })
+        copyGames = copyGames.sort((a, b) => {
+          if(a.favorite > b.favorite) {
+            return -1
+          }
+          if(a.favorite < b.favorite) {
+            return 1
+          }
+
+        })
+        this.setState({games: copyGames})
+
+        axios.post('http://localhost:3000/api/games', {
+            title: this.state.title,
+            release_date: this.state.release_date,
+            genre: this.state.genre,
+            developer: this.state.developer,
+            platform: this.state.platform,
+            publisher: this.state.publisher,
+            favorite: this.state.favorite
+            })
+       .then(response => this.setState({message: response}))
+       .catch(err => this.setState({error: err}))
+    } else {
+      this.setState({message: "This game already exists"})
+    }
+    // copyGames.map(item => {
+    //   if(item.title === this.state.title) {
+    //     this.setState({message: "This game already exists"})
+    //   }
+    // })
+
   }
 
   setFavorite = (id) => {
