@@ -9,11 +9,18 @@ server.use(express.json())
 module.exports = server
 
 server.post("/api/games", (req, res) => {
+  console.log("Body ", req.body)
   const data = req.body
   db('games')
     .insert((data))
-    .then(id => res.status(201).json(id))
-    .catch(err => res.status(500).json({message: "There was a problem creating the resource"}))
+    .then(id => {
+      console.log("Added game")
+      res.status(201).json(id)
+    })
+    .catch(err => {
+      console.log("didn't add game", err)
+      res.status(500).json({message: "There was a problem creating the resource", err})
+    })
 })
 
 server.get("/api/games/all", (req, res) => {
