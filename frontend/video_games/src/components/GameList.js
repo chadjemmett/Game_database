@@ -107,6 +107,20 @@ class GameList extends React.Component {
       .catch(error => this.setState({error: error}))
   }
 
+  sortState = (category) => {
+    const gamesCopy = this.state.games
+      gamesCopy.sort((a, b) => {
+        if(a[category] < b[category]) {
+          return - 1
+        }
+        if(a[category] > b[category]) {
+          return  1
+        }
+      })
+    console.log(gamesCopy)
+    this.setState({games: gamesCopy})
+  }
+
 
   render() {
     return (
@@ -115,14 +129,14 @@ class GameList extends React.Component {
         <Table striped bordered hover size="sm">
           <thead>
             <tr>
-              <th>Favorite</th>
-              <th>Title</th>
-              <th>Year Released</th>
-              <th>Platform</th>
-              <th>Genre</th>
-              <th>Publisher</th>
-              <th>Developer</th>
-              <th>Description</th>
+              <th onClick={() => this.sortState("favorite")}>Favorite</th>
+              <th onClick={() => this.sortState("title")}>Title</th>
+              <th onClick={() => this.sortState("release_year")}>Release Date</th>
+              <th onClick={() => this.sortState("platform")}>Platform</th>
+              <th onClick={() => this.sortState("genre")}>Genre</th>
+              <th onClick={() => this.sortState("publisher")}>Publisher</th>
+              <th onClick={() => this.sortState("developer")}>Developer</th>
+              <th onClick={() => this.sortState("description")}>Description</th>
             </tr>
           </thead>
           <tbody>

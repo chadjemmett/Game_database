@@ -55,11 +55,16 @@ server.put("/api/games/:game_id", (req, res) => {
 })
 
 server.delete("/api/games/:game_id", (req, res) => {
-   const {game_id} = req.params
-   db('games')
-    .where({id: game_id})
-    .del()
-    .then(count => res.status(200).json({message: "you deleted a resource", count}))
-    .catch(err => res.status(500).json({message: "There was a problem deleting the resource"}))
+  const {game_id} = req.params
+  db('games')
+  .where({id: game_id})
+  .del()
+  .then(count => {
+    if(count) {
+      res.status(200).json({message: "Deleted resource", count})
+    } else {
+      res.status(404).json({message: "No resource with that ID"})
+    }
+  })
+  .catch(err => res.status(500).json({message: 'There was a prlblem deleting the resouce'}))
 })
-
