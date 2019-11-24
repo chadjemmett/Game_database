@@ -1,6 +1,8 @@
 import React from 'react';
 import GameForm from './GameForm'
 import Game from './Game'
+import Table from 'react-bootstrap/Table'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from "axios"
 
 class GameList extends React.Component {
@@ -17,6 +19,7 @@ class GameList extends React.Component {
           developer: "",
           publisher: "",
           favorite: 0,
+          description: "",
       }
   }
 
@@ -42,7 +45,8 @@ class GameList extends React.Component {
           developer: this.state.developer,
           platform: this.state.platform,
           publisher: this.state.publisher,
-          favorite: this.state.favorite
+          favorite: this.state.favorite,
+          description: this.state.description
       })
         copyGames = copyGames.sort((a, b) => {
           if(a.favorite > b.favorite) {
@@ -51,9 +55,16 @@ class GameList extends React.Component {
           if(a.favorite < b.favorite) {
             return 1
           }
-
         })
-        this.setState({games: copyGames})
+        this.setState({games: copyGames,
+          title: "",
+          release_date: "",
+          publisher: "",
+          genre: "",
+          platform: "",
+          developer: "",
+          description: "",
+        })
 
         axios.post('http://localhost:3000/api/games', {
             title: this.state.title,
@@ -62,19 +73,14 @@ class GameList extends React.Component {
             developer: this.state.developer,
             platform: this.state.platform,
             publisher: this.state.publisher,
-            favorite: this.state.favorite
+            favorite: this.state.favorite,
+            description: this.state.description,
             })
-       .then(response => this.setState({message: response}))
-       .catch(err => this.setState({error: err}))
+         .then(response => this.setState({message: response}))
+         .catch(err => this.setState({error: err}))
     } else {
       this.setState({message: "This game already exists"})
     }
-    // copyGames.map(item => {
-    //   if(item.title === this.state.title) {
-    //     this.setState({message: "This game already exists"})
-    //   }
-    // })
-
   }
 
   setFavorite = (id) => {
@@ -105,9 +111,40 @@ class GameList extends React.Component {
   render() {
     return (
       <div>
-        <GameForm newGameData={this.state.newGame} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
-        {this.state.games.map(item => <Game key={item.id} gameData={item} setFavorite={this.setFavorite}/>)}
+        <GameForm props={this.state} newGameData={this.state.newGame} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
+        <Table striped bordered hover size="sm">
+          <thead>
+            <tr>
+              <th>Favorite</th>
+              <th>Title</th>
+              <th>Year Released</th>
+              <th>Platform</th>
+              <th>Genre</th>
+              <th>Publisher</th>
+              <th>Developer</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+
+        {this.state.games.map(item => 
+            <React.Fragment key={item.id}>
+            <tr onClick={() => this.setFavorite(item.id)} key={item.id}>
+              <td>{item.favorite === 1 ? "*" : "X"}</td>
+              <td>{item.title}</td>
+              <td>{item.release_date}</td>
+              <td>{item.platform}</td>
+              <td>{item.genre}</td>
+              <td>{item.publisher}</td>
+              <td>{item.developer}</td>
+              <td>{item.description}</td>
+            </tr>
+            </React.Fragment>
+        )}
+      </tbody>
+      </Table>
       </div>
+
     );
   }
 }

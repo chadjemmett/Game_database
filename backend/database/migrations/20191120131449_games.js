@@ -12,6 +12,7 @@ exports.up = function(knex) {
     games.string("developer", 128)
     games.string("publisher", 128)
     games.string("platform", 128)
+    games.string("description", 256)
     games.boolean("favorite").default(false)
   })
 };

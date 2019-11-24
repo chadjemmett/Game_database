@@ -12,24 +12,12 @@ server.post("/api/games", (req, res) => {
   const {title} = req.body
   const data = req.body
   db('games')
-   .where({title: title})
-   .then(rows => {
-     if(rows.length === 0) {
-      db('games')
-      .insert((data))
-      .then(id => {
-        console.log("Added game")
-        res.status(201).json(id)
-      .catch(err => res.status(403).json({message: "Resource already exists"}))
-      })
-     }
-   })
-   
-    .catch(err => {
-      console.log("didn't add game", err)
-      res.status(500).json({message: "There was a problem creating the resource", err})
-    })
+    .insert(data)
+    .then(id => res.status(201).json(id))
+    .catch(err => res.status(500).json({message: "There was a problem"}))
 })
+
+
 
 server.get("/api/games/all", (req, res) => {
   db('games').orderBy([{column: "favorite", order: "desc"}, {column: "title"}])
@@ -37,6 +25,24 @@ server.get("/api/games/all", (req, res) => {
     .catch(err => res.status(500).json({message: "There was a problem getting the resources"}))
 })
 
+server.get("/api/games/:order", (req, res) => {
+  const {order} = req.params
+    console.log(order)
+  db('games').orderBy([{column: "favorite", order: "desc"}, {column: `${order}`}])
+    .then(allGames => {res.status(200).json(allGames)})
+    .catch(err => res.status(500).json({message: "There was a problem getting the resources"}))
+})
+
+server.get("/api/games/by/year", (req, res) => {
+  db('games').orderBy([{column: "favorite", order: "desc"}, {column: "release_date"}])
+    .then(allGames => {res.status(200).json(allGames)})
+    .catch(err => res.status(500).json({message: "There was a problem getting the resources"}))
+})
+server.get("/api/games/by/year", (req, res) => {
+  db('games').orderBy([{column: "favorite", order: "desc"}, {column: "release_date"}])
+    .then(allGames => {res.status(200).json(allGames)})
+    .catch(err => res.status(500).json({message: "There was a problem getting the resources"}))
+})
 server.put("/api/games/:game_id", (req, res) => {
   const {game_id} = req.params
     // the front end should just send the favorite in the request
