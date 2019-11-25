@@ -1,6 +1,6 @@
 
 import React from 'react';
-import Table from 'react-bootstrap/Table'
+// import Table from 'react-bootstrap/Table'
 
 function Game(props) {
   return (
@@ -17,7 +17,7 @@ function Game(props) {
   );
 }
 
-export default Game;
+export default Game
 
 
 const container = {

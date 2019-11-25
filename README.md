@@ -22,6 +22,9 @@ Take a break 6:00 PM MT Nov 23
 Started working 4:20 PM MT Nov 24
 Break 5:20 PM MT Nov 24
 Started 5:40 PM MT Nov 24
+Break 7:11 PM MT Nov 24
+
+9:27
 
 
 

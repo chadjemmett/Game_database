@@ -9,6 +9,7 @@ server.use(express.json())
 module.exports = server
 
 server.post("/api/games", (req, res) => {
+  console.log(req.body)
   const {title} = req.body
   console.log(title)
   const data = req.body
@@ -17,7 +18,10 @@ server.post("/api/games", (req, res) => {
   } else {
     db('games')
       .insert(data)
-      .then(id => res.status(201).json(id))
+      .then(id => {
+        db('games').orderBy([{column: "favorite", order: "desc"}, {column: "title"}])
+          .then(allGames => {res.status(200).json(allGames)})
+      })
       .catch(err => res.status(500).json({message: "There was a problem"}))
   }
 })
