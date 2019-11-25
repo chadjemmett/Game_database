@@ -1,14 +1,27 @@
 Test for WEHCO media. Started Nov. 20 12:39 MT.
 took a break at 1:50 PM MT. Nov 20
+1:11
 Started working at 2:35 PM MT Nov 20
 Take a break 3:36 PM MT Nov 20
+1:01
 Started working at 12:21 MT Nov 21
 Take a Break at 1:25 MT Nov 21
+1:04
 Started Working at 2:20 MT Nov 21
 Take a break at 3:31 MT nov 21
+1:11
 Started Working 3:00 PM MT Nov 23
 Take a break at 4:40 PM MT Nov 23
+1:40
 Started Working 5:10 PM MT Nov 23
+Take a break 6:00 PM MT Nov 23
+0:50
+
+6:57
+
+Started working 4:20 PM MT Nov 24
+Break 5:20 PM MT Nov 24
+Started 5:40 PM MT Nov 24
 
 
 

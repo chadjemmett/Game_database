@@ -10,11 +10,16 @@ module.exports = server
 
 server.post("/api/games", (req, res) => {
   const {title} = req.body
+  console.log(title)
   const data = req.body
-  db('games')
-    .insert(data)
-    .then(id => res.status(201).json(id))
-    .catch(err => res.status(500).json({message: "There was a problem"}))
+  if(title === "") { 
+    res.status(422).json({message: "Title Can't be blank"})
+  } else {
+    db('games')
+      .insert(data)
+      .then(id => res.status(201).json(id))
+      .catch(err => res.status(500).json({message: "There was a problem"}))
+  }
 })
 
 

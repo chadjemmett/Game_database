@@ -1,22 +1,46 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.formContainer {
   display: flex;
-  flex-direction: column;
+  width: 100%;
+  background: lightgray;
+  height: 150px;
+  flex-direction: row; 
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #09d3ac;
+.button {
+  background: blue;
+  height: 30px;
+  color: white;
+  width: 15%;
+  font-weight: bold;
+  margin: 10px 0 0 3%;
+}
+
+
+.labelText {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  height: 50px;
+}
+
+.formBox {
+  
+  /* width: 10%; */
+}
+
+.leftForms {
+  display: flex;
+  /* height: 75px; */
+  /* width: 40%; */
+  /* border: yellow solid 3px; */
+
+}
+
+.rightForms {
+  display: flex;
+  /* height: 75px; */
+  /* width: 40%; */
+  /* border: red solid 3px; */
 }

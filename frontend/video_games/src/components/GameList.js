@@ -35,52 +35,65 @@ class GameList extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    let copyGames = this.state.games
-    const filteredGames = copyGames.filter(item => item.title === this.state.title)
-    if(filteredGames.length === 0) {
-      copyGames.push({
-          title: this.state.title,
-          release_date: this.state.release_date,
-          genre: this.state.genre,
-          developer: this.state.developer,
-          platform: this.state.platform,
-          publisher: this.state.publisher,
-          favorite: this.state.favorite,
-          description: this.state.description
-      })
-        copyGames = copyGames.sort((a, b) => {
-          if(a.favorite > b.favorite) {
-            return -1
-          }
-          if(a.favorite < b.favorite) {
-            return 1
-          }
-        })
-        this.setState({games: copyGames,
-          title: "",
-          release_date: "",
-          publisher: "",
-          genre: "",
-          platform: "",
-          developer: "",
-          description: "",
-        })
-
-        axios.post('http://localhost:3000/api/games', {
-            title: this.state.title,
-            release_date: this.state.release_date,
-            genre: this.state.genre,
-            developer: this.state.developer,
-            platform: this.state.platform,
-            publisher: this.state.publisher,
-            favorite: this.state.favorite,
-            description: this.state.description,
+      if(this.state.title === "" || this.state.release_date === "") {
+        console.log("can't be blank")
+        this.setState({message: "Title or year can't be blank"})
+      } else {
+        let copyGames = this.state.games
+        const filteredGames = copyGames.filter(item => item.title === this.state.title)
+        if(filteredGames.length === 0) {
+          copyGames.push({
+              title: this.state.title,
+              release_date: this.state.release_date,
+              genre: this.state.genre,
+              developer: this.state.developer,
+              platform: this.state.platform,
+              publisher: this.state.publisher,
+              favorite: this.state.favorite,
+              description: this.state.description
+          })
+            copyGames = copyGames.sort((a, b) => {
+              if(a.favorite > b.favorite) {
+                return -1
+              }
+              if(a.favorite < b.favorite) {
+                return 1
+              }
             })
-         .then(response => this.setState({message: response}))
-         .catch(err => this.setState({error: err}))
+
+
+            this.setState({games: copyGames,
+              title: "",
+              release_date: "",
+              publisher: "",
+              genre: "",
+              platform: "",
+              developer: "",
+              description: "",
+            })
+
+            axios.post('http://localhost:3000/api/games', {
+                title: this.state.title,
+                release_date: this.state.release_date,
+                genre: this.state.genre,
+                developer: this.state.developer,
+                platform: this.state.platform,
+                publisher: this.state.publisher,
+                favorite: this.state.favorite,
+                description: this.state.description,
+                })
+             .then(response => this.setState({message: response}))
+             .catch(err => this.setState({error: err}))
     } else {
       this.setState({message: "This game already exists"})
     }
+
+
+
+
+
+
+      }
   }
 
   setFavorite = (id) => {
@@ -144,7 +157,7 @@ class GameList extends React.Component {
         {this.state.games.map(item => 
             <React.Fragment key={item.id}>
             <tr onClick={() => this.setFavorite(item.id)} key={item.id}>
-              <td>{item.favorite === 1 ? "*" : "X"}</td>
+              <td>{item.favorite === 1 ? "⭐️" :"-"}</td>
               <td>{item.title}</td>
               <td>{item.release_date}</td>
               <td>{item.platform}</td>
