@@ -114,24 +114,16 @@ class GameList extends React.Component {
         }
 
       })
-    this.setState({games: stateCopy})
+    // this.setState({games: stateCopy})
     axios.put(`http://localhost:3000/api/games/${id}`, data )
-      .then(response => this.setState({message: response.data}))
+      .then(response => this.setState({games: response.data}))
       .catch(error => this.setState({error: error}))
   }
 
   sortState = (category) => {
-    const gamesCopy = this.state.games
-      gamesCopy.sort((a, b) => {
-        if(a[category] < b[category]) {
-          return - 1
-        }
-        if(a[category] > b[category]) {
-          return  1
-        }
-      })
-    console.log(gamesCopy)
-    this.setState({games: gamesCopy})
+    axios.get(`http://localhost:3000/api/games/${category}`)
+      .then((response => this.setState({games: response.data})))
+      .catch(error => this.setState({error: error}))
   }
 
 
@@ -144,7 +136,7 @@ class GameList extends React.Component {
             <tr>
               <th onClick={() => this.sortState("favorite")}>Favorite</th>
               <th onClick={() => this.sortState("title")}>Title</th>
-              <th onClick={() => this.sortState("release_year")}>Release Date</th>
+              <th onClick={() => this.sortState("release_date")}>Release Date</th>
               <th onClick={() => this.sortState("platform")}>Platform</th>
               <th onClick={() => this.sortState("genre")}>Genre</th>
               <th onClick={() => this.sortState("publisher")}>Publisher</th>
