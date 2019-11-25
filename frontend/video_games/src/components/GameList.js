@@ -1,6 +1,5 @@
 import React from 'react';
 import GameForm from './GameForm'
-import Game from './Game'
 import Table from 'react-bootstrap/Table'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from "axios"
@@ -61,25 +60,15 @@ class GameList extends React.Component {
   
 
   setFavorite = (id) => {
-    // let stateCopy = this.state.games
     const data = {favorite: null}
     let stateCopy = this.state.games
-      stateCopy.map(item => {
-        if(item.id === id) {
-          item.favorite === 0 ? item.favorite = 1 : item.favorite = 0
-          data.favorite = item.favorite
-        }
-      })
-      stateCopy = stateCopy.sort((a, b) => {
-        if(a.favorite > b.favorite) {
-          return -1
-        }
-        if(a.favorite < b.favorite) {
-          return 1
-        }
 
-      })
-    // this.setState({games: stateCopy})
+    stateCopy.map(item => {
+      if(item.id === id) {
+        item.favorite === 0 ? item.favorite = 1 : item.favorite = 0
+        data.favorite = item.favorite
+      }
+    })
     axios.put(`http://localhost:3000/api/games/${id}`, data )
       .then(response => this.setState({games: response.data}))
       .catch(error => this.setState({error: error}))

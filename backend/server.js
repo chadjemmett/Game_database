@@ -10,11 +10,11 @@ module.exports = server
 
 server.post("/api/games", (req, res) => {
   console.log(req.body)
-  const {title} = req.body
+  const {title, release_date} = req.body
   console.log(title)
   const data = req.body
-  if(title === "") { 
-    res.status(422).json({message: "Title Can't be blank"})
+  if(title === "" || release_date === "") { 
+    res.status(422).json({message: "Title/Year Can't be blank"})
   } else {
     db('games')
       .insert(data)

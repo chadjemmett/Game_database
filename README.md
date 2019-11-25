@@ -24,7 +24,10 @@ Break 5:20 PM MT Nov 24
 Started 5:40 PM MT Nov 24
 Break 7:11 PM MT Nov 24
 
-9:27
+Hours: 9:27
+Worked last half-hour on Monday Nov 26.
+
+Finished Project on 9:50 AM Monday Nov 26.
 
 
 
